@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        .tab ul {
+            /* 溢出隐藏 */
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tab ul li {
+            box-sizing: border-box;
+            padding: 0;
+            float: left;
+            width: 100px;
+            height: 45px;
+            line-height: 45px;
+            list-style: none;
+            text-align: center;
+            border-top: 1px solid blue;
+            border-right: 1px solid blue;
+            /* 鼠标指针放在一个元素边界范围内时所用的光标形状 */
+            cursor: pointer;
+        }
+
+        .tab ul li:first-child {
+            border-left: 1px solid blue;
+        }
+
+        .tab ul li.active {
+            background: orange;
+        }
+
+        .tab div {
+            width: 500px;
+            height: 300px;
+            display: none;
+            text-align: center;
+            font-size: 30px;
+            line-height: 300px;
+            border: 1px solid blue;
+            border-top: 0px;
+        }
+
+        .tab div.current {
+            /* 此元素将显示为块级元素，此元素前后会带有换行符。 */
+            display: block;
+        }
+    </style>
+
+</head>
+<div id="app">
+    <div class="tab">
+        <ul>
+            <li v-on:click='change(index)' :class='currentIndex==index?"active":""' :key='item.id'
+                v-for='(item,index) in list'>{{item.title}}</li>
+        </ul>
+        <div :class='currentIndex==index?"current":""' :key='item.id' v-for='(item,index) in list'>
+            <img :src="item.path">
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    //1.实现静态UI效果：用传统的方式实现标签结构和样式 
+    //2.基于数据重构UI效果
+    // 将静态的结构和样式重构哦为基于vue模板语法的形式
+    // 处理时间绑定和js控制逻辑
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            currentIndex: 0,//选项卡当前的索引
+            list: [{
+                id: 1,
+                title: 'apple',
+                path: 'img/apple.png'
+            }, {
+                id: 2,
+                title: 'orange',
+                path: 'img/orange.png'
+            }, {
+                id: 3,
+                title: 'lemon',
+                path: 'img/lemon.png'
+            }]
+        },
+        methods: {
+            change: function (index) {
+                // 实现选项卡的切换
+                // 本质是操作类名 通过currentIndex 和index
+                this.currentIndex = index;
+
+            }
+
+        }
+    })
+
+</script>
+
+<body>
+
+</body>
+
+</html>
